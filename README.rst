@@ -16,7 +16,11 @@ svmplus
 
 
 
-Implementation of SVM+
+Python implementation of Support Vector Machines Plus (SVM+).
+Implementation of Support Vector Machines Plus (SVM+) for classification problems.
+See [1] for theoretical details and see [2] for implementation details in 'MATLAB'.
+
+This can be considered as an extension to sklearn.svm.
 
 
 * Free software: MIT license
