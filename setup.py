@@ -11,7 +11,8 @@ with open('README.rst') as readme_file:
 with open('HISTORY.rst') as history_file:
     history = history_file.read()
 
-requirements = ['numpy', 'scipy', 'sklearn', 'cvxopt']
+requirements = ['numpy', 'scipy', 'sklearn', 'cvxopt',
+		'ABCMeta', 'six']
 
 setup_requirements = [ ]
 
