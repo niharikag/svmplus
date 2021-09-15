@@ -17,7 +17,6 @@ class BaseSVMPlus(six.with_metaclass(ABCMeta, BaseEstimator)):
                  kernel_xstar, degree_xstar, gamma_xstar,
                  tol):
 
-
         if gamma == 0:
             msg = ("The gamma value of 0.0 is invalid. Use 'auto' to set"
                    " gamma to a value of 1 / n_features.")
