@@ -200,6 +200,6 @@ class QPSVMPlus(six.with_metaclass(ABCMeta, BaseSVMPlus, BaseEstimator)):
 
 
     def decision_function(self, X):
-        return self.project(self, X)
+        return self.project(X)
 
 
