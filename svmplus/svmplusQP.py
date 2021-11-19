@@ -18,7 +18,7 @@ from abc import ABCMeta
 import numpy as np
 from sklearn.base import BaseEstimator
 from cvxopt import matrix, solvers
-from base  import BaseSVMPlus
+from svmplus.base import BaseSVMPlus
 from sklearn.utils import check_X_y
 
 

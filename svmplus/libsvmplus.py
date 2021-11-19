@@ -6,7 +6,7 @@ import numpy as np
 from sklearn.base import BaseEstimator, ClassifierMixin
 from sklearn import svm
 from sklearn.utils import check_X_y
-from base  import BaseSVMPlus
+from svmplus.base import BaseSVMPlus
 
 
 class LibSVMPlus(six.with_metaclass(ABCMeta, BaseSVMPlus, BaseEstimator)):
@@ -91,7 +91,7 @@ class LibSVMPlus(six.with_metaclass(ABCMeta, BaseSVMPlus, BaseEstimator)):
             Q = H + G
             #D = np.transpose(range(n_samples))
             #prob = np.concatenate((D, Q), axis = 1)
-            model = svm.libsvm.fit(Q, np.ones(n_samples), svm_type=2, nu = 1 / n_samples,
+            model = svm._libsvm.fit(Q, np.ones(n_samples), svm_type=2, nu = 1 / n_samples,
                                    kernel = 'precomputed', tol = self.tol)
 
             sv_x = X[model[0]]

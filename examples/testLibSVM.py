@@ -3,7 +3,7 @@ from sklearn.datasets import load_digits
 from sklearn.model_selection import train_test_split
 import scipy.ndimage
 import sklearn.preprocessing as preproc
-import svmplus
+from svmplus import svmplus
 
 def prepareDigitData():
     #digits = load_digits(n_class=4)

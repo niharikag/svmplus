@@ -1,5 +1,5 @@
 import numpy as np
-import svmplus
+from svmplus import svmplus
 from sklearn.datasets import load_digits
 from sklearn.model_selection import train_test_split
 import scipy.ndimage
