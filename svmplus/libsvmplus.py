@@ -6,7 +6,7 @@ import numpy as np
 from sklearn.base import BaseEstimator, ClassifierMixin
 from sklearn import svm
 from sklearn.utils import check_X_y
-from base  import BaseSVMPlus
+from svmplus.base import BaseSVMPlus
 
 
 class LibSVMPlus(six.with_metaclass(ABCMeta, BaseSVMPlus, BaseEstimator)):
@@ -60,12 +60,8 @@ class LibSVMPlus(six.with_metaclass(ABCMeta, BaseSVMPlus, BaseEstimator)):
             kernel_param_star = self.gamma_xstar
 
         # compute the matrix K and KStar (n_samples X n_samples) using kernel function
-        K = np.zeros((n_samples, n_samples))
-        KStar = np.zeros((n_samples, n_samples))
-        for i in range(n_samples):
-            for j in range(n_samples):
-                K[i, j] = kernel_method(X[i, :], X[j, :], kernel_param)
-                KStar[i, j] = kernel_method_star(XStar[i, :], XStar[j, :], kernel_param_star)
+        K = kernel_method(X, X, kernel_param)
+        KStar = kernel_method_star(XStar, XStar, kernel_param_star)
 
         cls_labels = np.unique(y)
         n_class = len(cls_labels)
@@ -91,7 +87,7 @@ class LibSVMPlus(six.with_metaclass(ABCMeta, BaseSVMPlus, BaseEstimator)):
             Q = H + G
             #D = np.transpose(range(n_samples))
             #prob = np.concatenate((D, Q), axis = 1)
-            model = svm.libsvm.fit(Q, np.ones(n_samples), svm_type=2, nu = 1 / n_samples,
+            model = svm._libsvm.fit(Q, np.ones(n_samples), svm_type=2, nu = 1 / n_samples,
                                    kernel = 'precomputed', tol = self.tol)
 
             sv_x = X[model[0]]
@@ -128,22 +124,15 @@ class LibSVMPlus(six.with_metaclass(ABCMeta, BaseSVMPlus, BaseEstimator)):
 
 
         if self.n_class == 1:
-            y_project = np.zeros(len(X))
             m = self.model
-            for i in range(len(X)):
-                s = 0
-                for a, sv in zip(m[1], m[0]):
-                    s += a * kernel_method(X[i], sv, kernel_param)
-                y_project[i] = s
+            y_project = np.sum(np.multiply(m[1].reshape(-1), kernel_method(X, m[0], kernel_param)), axis=1)
+
         else:
             y_project = np.zeros((len(X), self.n_class))
             for cls in range(self.n_class) :
                 m = self.model[cls]
-                for i in range(len(X)):
-                    s = 0
-                    for a, sv in zip(m[1], m[0]):
-                        s += np.multiply(a, kernel_method(X[i], sv, kernel_param))
-                    y_project[i, cls] = s
+                y_project[:, cls] = np.sum(np.multiply(m[1].reshape(-1), kernel_method(X, m[0], kernel_param)), axis=1)
+
         return y_project
 
 

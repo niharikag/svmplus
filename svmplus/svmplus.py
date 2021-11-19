@@ -50,10 +50,10 @@ def SVMPlus(svm_type = "QP", C=1, gamma=1,
         References
         ----------
         .. [1] Vladimir et. al, Neural Networks, 2009, 22, pp 544–557.
-                \url{https://doi.org/10.1016/j.neunet.2009.06.042}
+                \\url{https://doi.org/10.1016/j.neunet.2009.06.042}
 
         .. [2] Li et. al, 2016.
-            \url{https://github.com/okbalefthanded/svmplus_matlab}
+            \\url{https://github.com/okbalefthanded/svmplus_matlab}
 
         Examples
         --------

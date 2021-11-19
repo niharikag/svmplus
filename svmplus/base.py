@@ -5,6 +5,7 @@ import six
 from abc import ABCMeta
 import numpy as np
 from sklearn.base import BaseEstimator
+from sklearn.metrics.pairwise import linear_kernel, polynomial_kernel, rbf_kernel
 from numpy import linalg as LA
 
 
@@ -52,16 +53,16 @@ class BaseSVMPlus(six.with_metaclass(ABCMeta, BaseEstimator)):
     @staticmethod
     # Linear kernel
     def _linear_kernel(x1, x2, param = None):
-        return np.dot(x1, x2)
+        return linear_kernel(x1, x2)
 
 
     @staticmethod
     # Polynomial kernel
     def _poly_kernel(x1, x2, param = 2):
-        return (1 + np.dot(x1, x2)) ** param
+        return polynomial_kernel(x1, x2, degree=param)
 
 
     @staticmethod
     # Radial basis kernel
     def _rbf_kernel(x1, x2, param = 1.0):
-        return np.exp(-(LA.norm(x1 - x2) ** 2) * param)
+        return rbf_kernel(x1, x2, gamma=param)
